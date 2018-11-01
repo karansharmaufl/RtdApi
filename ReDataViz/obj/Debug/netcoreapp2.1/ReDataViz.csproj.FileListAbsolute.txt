@@ -1,0 +1,14 @@
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\bin\Debug\netcoreapp2.1\ReDataViz.deps.json
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\bin\Debug\netcoreapp2.1\ReDataViz.runtimeconfig.json
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\bin\Debug\netcoreapp2.1\ReDataViz.runtimeconfig.dev.json
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\bin\Debug\netcoreapp2.1\ReDataViz.dll
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\bin\Debug\netcoreapp2.1\ReDataViz.pdb
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.csprojAssemblyReference.cache
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.csproj.CoreCompileInputs.cache
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.RazorAssemblyInfo.cache
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.RazorAssemblyInfo.cs
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.AssemblyInfoInputs.cache
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.AssemblyInfo.cs
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.RazorTargetAssemblyInfo.cache
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.dll
+C:\Users\karans\source\repos\ReDataViz\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.pdb
