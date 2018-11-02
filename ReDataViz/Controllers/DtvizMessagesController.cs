@@ -15,20 +15,26 @@ namespace ReDataViz.Controllers
             {
                 new Models.DtvizMessage
                 {
-                    Owner = "John Doe",
+                    Owner = "John",
                     Text = "What a sunny day"
                 },
                 new Models.DtvizMessage
                 {
-                    Owner = "Jane Doe",
+                    Owner = "Jane",
                     Text = "Indeed it is"
                 }
             };
 
-
+        [HttpGet]
         public IEnumerable<Models.DtvizMessage> Get()
         {
             return dtms;
+        }
+
+        [HttpGet("{name}")]
+        public IEnumerable<Models.DtvizMessage> Get(string name)
+        {
+            return dtms.FindAll( dtmessage => dtmessage.Owner.Equals(name));
         }
 
         [HttpPost]
