@@ -13,10 +13,19 @@ namespace ReDataViz.Controllers
     public class AuthenticationController : ControllerBase
     {
         [HttpPost("register")]
-        public void Register()
+        public JwtData Register()
         {
             var jwt = new JwtSecurityToken();
             var encoded_jwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return new JwtData {
+                Token = encoded_jwt
+            };
         }
+    }
+
+    public class JwtData
+    {
+        public string Token { get; set; }
     }
 }
