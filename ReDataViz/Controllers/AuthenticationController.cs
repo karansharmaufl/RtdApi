@@ -13,7 +13,7 @@ namespace ReDataViz.Controllers
     public class AuthenticationController : ControllerBase
     {
         [HttpPost("register")]
-        public JwtData Register()
+        public JwtData Register([FromBody] Models.User user)
         {
             var jwt = new JwtSecurityToken();
             var encoded_jwt = new JwtSecurityTokenHandler().WriteToken(jwt);
