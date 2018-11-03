@@ -11,37 +11,71 @@ namespace ReDataViz.Controllers
     [ApiController]
     public class DtvizMessagesController : ControllerBase
     {
-        static List<Models.DtvizMessage> dtms = new List<Models.DtvizMessage>
-            {
-                new Models.DtvizMessage
-                {
-                    Owner = "John",
-                    Text = "What a sunny day"
-                },
-                new Models.DtvizMessage
-                {
-                    Owner = "Jane",
-                    Text = "Indeed it is"
-                }
-            };
+        // Check the old code below for basic references
+
+        readonly ApiContext _context;
+
+        // Build a constructor to get the API reference 
+
+        public DtvizMessagesController(ApiContext _context)
+        {
+            this._context = _context;
+        }
 
         [HttpGet]
         public IEnumerable<Models.DtvizMessage> Get()
         {
-            return dtms;
+            return _context.DtvizMessages;
         }
 
         [HttpGet("{name}")]
         public IEnumerable<Models.DtvizMessage> Get(string name)
         {
-            return dtms.FindAll( dtmessage => dtmessage.Owner.Equals(name));
+            return _context.DtvizMessages.Where(dtmessage => dtmessage.Owner.Equals(name));
         }
 
         [HttpPost]
         public Models.DtvizMessage Post([FromBody] Models.DtvizMessage dtm)
         {
-            dtms.Add(dtm);
-            return dtm;
+            var dbMessage = _context.DtvizMessages.Add(dtm).Entity;
+            _context.SaveChanges();
+            return dbMessage;
         }
     }
 }
+
+
+
+
+//static List<Models.DtvizMessage> dtms = new List<Models.DtvizMessage>
+//            {
+//                new Models.DtvizMessage
+//                {
+//                    Owner = "John",
+//                    Text = "What a sunny day"
+//                },
+//                new Models.DtvizMessage
+//                {
+//                    Owner = "Jane",
+//                    Text = "Indeed it is"
+//                }
+//            };
+
+//[HttpGet]
+//public IEnumerable<Models.DtvizMessage> Get()
+//{
+//    return dtms;
+//}
+
+//[HttpGet("{name}")]
+//public IEnumerable<Models.DtvizMessage> Get(string name)
+//{
+//    return dtms.FindAll(dtmessage => dtmessage.Owner.Equals(name));
+//}
+
+//[HttpPost]
+//public Models.DtvizMessage Post([FromBody] Models.DtvizMessage dtm)
+//{
+//    dtms.Add(dtm);
+//    return dtm;
+//}
