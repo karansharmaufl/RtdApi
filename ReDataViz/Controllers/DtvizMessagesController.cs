@@ -34,12 +34,36 @@ namespace ReDataViz.Controllers
             return _context.DtvizMessages.Where(dtmessage => dtmessage.Owner.Equals(name));
         }
 
+        [HttpGet("{postid}")]
+        public IEnumerable<Models.DtvizMessage> GetPostById(string id)
+        {
+            return _context.DtvizMessages.Where(dtmessage => dtmessage.Id.Equals(id));
+        }
+
         [HttpPost]
         public Models.DtvizMessage Post([FromBody] Models.DtvizMessage dtm)
         {
             var dbMessage = _context.DtvizMessages.Add(dtm).Entity;
             _context.SaveChanges();
             return dbMessage;
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult UpdateDtvizMessage([FromRoute] string id, [FromBody] Models.DtvizMessage dtm)
+        {
+            var editDtm=_context.Entry(dtm).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(editDtm);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult RemoveDtvizMessage([FromRoute] string id)
+        {
+            var removeDtm = _context.DtvizMessages.SingleOrDefault(dtm => dtm.Id.Equals(id));
+            _context.DtvizMessages.Remove(removeDtm);
+            _context.SaveChanges();
+            return Ok(removeDtm);
         }
     }
 }

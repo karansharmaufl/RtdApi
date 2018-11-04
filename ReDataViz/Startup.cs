@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ReDataViz
 {
@@ -35,6 +38,30 @@ namespace ReDataViz
                     }
                 ));
 
+            var siginingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is the secret phrase"));
+
+            services.AddAuthentication(opts =>
+                {
+                    opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer( config =>
+                {
+                    config.RequireHttpsMetadata = false;
+                    config.SaveToken = true;
+                    config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    {
+                        // Set to false in mcking
+                        IssuerSigningKey = siginingKey,
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateLifetime = false,
+                        ValidateIssuerSigningKey = true
+                    };
+                });
+
+
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -49,9 +76,10 @@ namespace ReDataViz
             {
                 app.UseHsts();
             }
-
-            //app.UseHttpsRedirection();
             app.UseCors("Cors");
+            app.UseAuthentication();
+            //app.UseHttpsRedirection();
+            
             app.UseMvc();
 
             SeedData(serviceProvider.GetService<ApiContext>()); // Added service provider
@@ -61,23 +89,38 @@ namespace ReDataViz
         {
             _context.DtvizMessages.Add(new Models.DtvizMessage
             {
-                Owner = "John",
-                Text = "What a sunny day"
+                Owner = "Test",
+                OwnerEmailID = "tu@test.com",
+                Topic = "General",
+                Text = "What a sunny day",
+                Color = "red"
             });
             _context.DtvizMessages.Add(new Models.DtvizMessage
             {
-                Owner = "Jane",
-                Text = "Indeed it is"
+                Owner = "Test2",
+                OwnerEmailID = "tu2@test.com",
+                Topic = "General",
+                Text = "Indeed it is",
+                Color = "orange"
             });
             _context.Users.Add(new Models.User {
                 FirstName = "Test",
                 LastName = "User",
                 EmailID = "tu@test.com",
                 Passsword = "pwd"
-    });
+            });
+            _context.Users.Add(new Models.User
+            {
+                FirstName = "Test2",
+                LastName = "User2",
+                EmailID = "tu2@test.com",
+                Passsword = "pwd"
+            });
 
 
- 
+
+
+
             _context.SaveChanges();
         }
     }

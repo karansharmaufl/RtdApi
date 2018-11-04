@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ReDataViz.Controllers
 {
@@ -35,10 +38,15 @@ namespace ReDataViz.Controllers
             this._context = _context;
         }
 
+        //[HttpGet]
+        //public IEnumerable<Models.User> AllUsers()
+        //{
+        //    return _context.Users;
+        //}
+
         [HttpPost("register")]
         public JwtData Register([FromBody] Models.User user)
         {
-
             _context.Users.Add(user);
             _context.SaveChanges();
             var jwtData = CreateJwtData(user);
@@ -46,15 +54,27 @@ namespace ReDataViz.Controllers
         }
 
         [HttpPost("login")]
-        public JwtData Login([FromBody] LoginData loginData) // Taking a different body to stop confusion
+        public ActionResult Login([FromBody] LoginData loginData) // Taking a different body to stop confusion
         {
-            var user = _context.Users.SingleOrDefault(usr => usr.EmailID.Equals(loginData.Email) && usr.Passsword.Equals(loginData.Password));
-            return CreateJwtData(user);
+            var user = _context.Users.SingleOrDefault(usr => usr.EmailID.Equals(loginData.Email) 
+            && usr.Passsword.Equals(loginData.Password));
+
+            if (user == null)
+                return NotFound("Email or password incorrect try again");
+            return Ok(CreateJwtData(user));
         }
 
         private JwtData CreateJwtData(Models.User user)
         {
-            var jwt = new JwtSecurityToken();
+            var SIGN_IN_KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is the secret phrase"));
+            var singingCredentials = new SigningCredentials(SIGN_IN_KEY, SecurityAlgorithms.HmacSha256);
+            var claims = new Claim[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id)
+            };
+
+            
+            var jwt = new JwtSecurityToken(claims : claims, signingCredentials: singingCredentials); // Adding claims for security
             var encoded_jwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             
             // catch after post request
