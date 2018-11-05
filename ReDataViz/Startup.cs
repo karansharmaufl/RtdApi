@@ -34,10 +34,13 @@ namespace ReDataViz
             services.AddCors( options => options.AddPolicy("Cors",
                     builder =>
                     {
-                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200");
                     }
+                    
                 ));
+            services.AddSignalR();
 
+            // This is for authentication
             var siginingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is the secret phrase"));
 
             services.AddAuthentication(opts =>
@@ -77,11 +80,17 @@ namespace ReDataViz
                 app.UseHsts();
             }
             app.UseCors("Cors");
-            app.UseAuthentication();
+            
             //app.UseHttpsRedirection();
             
-            app.UseMvc();
+            
 
+            app.UseSignalR((options) =>
+            {
+                options.MapHub<RtdHub>("/Notify");
+            });
+            app.UseAuthentication();
+            app.UseMvc();
             SeedData(serviceProvider.GetService<ApiContext>()); // Added service provider
         }
 

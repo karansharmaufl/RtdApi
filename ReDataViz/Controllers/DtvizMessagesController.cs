@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReDataViz;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ReDataViz.Controllers
 {
@@ -14,12 +16,15 @@ namespace ReDataViz.Controllers
         // Check the old code below for basic references
 
         readonly ApiContext _context;
+        private IHubContext<RtdHub> _hubcontext;
+
 
         // Build a constructor to get the API reference 
 
-        public DtvizMessagesController(ApiContext _context)
+        public DtvizMessagesController(ApiContext _context, IHubContext<RtdHub> _hubcontext)
         {
             this._context = _context;
+            this._hubcontext = _hubcontext;
         }
 
         [HttpGet]
@@ -41,11 +46,12 @@ namespace ReDataViz.Controllers
         }
 
         [HttpPost]
-        public Models.DtvizMessage Post([FromBody] Models.DtvizMessage dtm)
+        public async Task<IActionResult> PostAsync([FromBody] Models.DtvizMessage dtm)
         {
-            var dbMessage = _context.DtvizMessages.Add(dtm).Entity;
-            _context.SaveChanges();
-            return dbMessage;
+            var dbMessage = _context.DtvizMessages.Add(dtm);
+            await _context.SaveChangesAsync();
+            await _hubcontext.Clients.All.SendAsync("Add", dtm);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -53,7 +59,7 @@ namespace ReDataViz.Controllers
         {
             var editDtm=_context.Entry(dtm).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
-
+            _hubcontext.Clients.All.SendAsync("Add", editDtm);
             return Ok(editDtm);
         }
 
@@ -63,6 +69,7 @@ namespace ReDataViz.Controllers
             var removeDtm = _context.DtvizMessages.SingleOrDefault(dtm => dtm.Id.Equals(id));
             _context.DtvizMessages.Remove(removeDtm);
             _context.SaveChanges();
+            _hubcontext.Clients.All.SendAsync("Delete", removeDtm);
             return Ok(removeDtm);
         }
     }
