@@ -1,0 +1,15 @@
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\bin\Release\netcoreapp2.1\ReDataViz.deps.json
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\bin\Release\netcoreapp2.1\ReDataViz.runtimeconfig.json
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\bin\Release\netcoreapp2.1\ReDataViz.runtimeconfig.dev.json
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\bin\Release\netcoreapp2.1\ReDataViz.dll
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\bin\Release\netcoreapp2.1\ReDataViz.pdb
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.csprojAssemblyReference.cache
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.csproj.CoreCompileInputs.cache
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.RazorAssemblyInfo.cache
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.RazorAssemblyInfo.cs
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.AssemblyInfoInputs.cache
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.AssemblyInfo.cs
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.RazorTargetAssemblyInfo.cache
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.dll
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Release\netcoreapp2.1\ReDataViz.pdb

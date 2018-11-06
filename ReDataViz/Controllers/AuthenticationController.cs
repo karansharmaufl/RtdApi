@@ -16,6 +16,7 @@ namespace ReDataViz.Controllers
         public string FirstName { get; set; }
         public string Token { get; set; }
         public string EmailID { get; set; }
+        public string AckMessage { get; set; }
     }
 
     public class LoginData
@@ -47,8 +48,24 @@ namespace ReDataViz.Controllers
         [HttpPost("register")]
         public JwtData Register([FromBody] Models.User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            var listEmails = _context.Users.Where(usr => usr.EmailID.Equals(user.EmailID));
+            
+            try
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return new JwtData
+                {
+                    Token = "",
+                    FirstName = "",
+                    EmailID = "",
+                    AckMessage=e.GetType().ToString()
+                };
+            }
+            
             var jwtData = CreateJwtData(user);
             return jwtData;
         }
@@ -70,7 +87,7 @@ namespace ReDataViz.Controllers
             var singingCredentials = new SigningCredentials(SIGN_IN_KEY, SecurityAlgorithms.HmacSha256);
             var claims = new Claim[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id)
+                new Claim(JwtRegisteredClaimNames.Sub, user.EmailID)
             };
 
             
@@ -82,7 +99,8 @@ namespace ReDataViz.Controllers
             {
                 Token = encoded_jwt,
                 FirstName = user.FirstName,
-                EmailID = user.EmailID
+                EmailID = user.EmailID,
+                AckMessage = ""
             };
         }
     }

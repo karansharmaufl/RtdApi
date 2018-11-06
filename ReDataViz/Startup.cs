@@ -29,12 +29,20 @@ namespace ReDataViz
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApiContext>(option => option.UseInMemoryDatabase("MyLocalDB1"));
+            var allowedOrigins = new string[] { "https://karansharmaufl.github.io", "http://localhost:4200"};
+
+            // DEVELOPMENT_DATABASE
+            //services.AddDbContext<ApiContext>(option => option.UseInMemoryDatabase("MyLocalDB1"));
+
+            // PROD_DATABASE
+            var connection = "Server=tcp:ufgator.database.windows.net,1433;Initial Catalog=ReDataViz20181105061447_db;Persist Security Info=False;User ID=karans;Password=Kaaran*sh2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            services.AddDbContext<ApiContext>(options => options.UseSqlServer(connection));
 
             services.AddCors( options => options.AddPolicy("Cors",
                     builder =>
                     {
-                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200");
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                        .WithOrigins(allowedOrigins);
                     }
                     
                 ));
@@ -66,6 +74,8 @@ namespace ReDataViz
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,7 +101,7 @@ namespace ReDataViz
             });
             app.UseAuthentication();
             app.UseMvc();
-            SeedData(serviceProvider.GetService<ApiContext>()); // Added service provider
+            //SeedData(serviceProvider.GetService<ApiContext>()); // Added service provider
         }
 
         public void SeedData(ApiContext _context)

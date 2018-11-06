@@ -23,23 +23,24 @@ namespace ReDataViz.Controllers
             return _context.Users;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Models.User> GetUserById(string id)
-        {
-            var user = _context.Users.SingleOrDefault(u => u.Id == id);
-            if (user == null)
-                return NotFound("User Not Found");
-            return Ok(user);
+        // Implement later
+        //[HttpGet("{id}")]
+        //public ActionResult<Models.User> GetUserById(string id)
+        //{
+        //    var user = _context.Users.SingleOrDefault(u => u.Id == id);
+        //    if (user == null)
+        //        return NotFound("User Not Found");
+        //    return Ok(user);
             
-        }
+        //}
         // Using auth middleware
-        [Authorize]
-        [HttpGet("me")]
-        public ActionResult GetUser()
-        {
-            var id = HttpContext.User.Claims.First().Value;
-            return Ok(_context.Users.SingleOrDefault( u => u.Id == id ));
-        }
+        //[Authorize]
+        //[HttpGet("me")]
+        //public ActionResult GetUser()
+        //{
+        //    var id = HttpContext.User.Claims.First().Value;
+        //    return Ok(_context.Users.SingleOrDefault( u => u.Id == id ));
+        //}
 
     }
 }

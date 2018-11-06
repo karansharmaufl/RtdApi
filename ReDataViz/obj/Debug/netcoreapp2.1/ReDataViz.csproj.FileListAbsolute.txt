@@ -26,3 +26,4 @@ C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\
 C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.RazorTargetAssemblyInfo.cache
 C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.dll
 C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Debug\netcoreapp2.1\ReDataViz.pdb
+C:\Users\sharm\OneDrive\Desktop\SampleFullStack\BackendApi\RtdApi\ReDataViz\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
